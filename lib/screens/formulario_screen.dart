@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:frasesapp/data/frases_db.dart';
 import 'package:frasesapp/models/frase.dart';
 
-class FormularioScreen extends StatefulWidget{
-  final Frase? frase;//null = nueva, con valor = editar
+class FormularioScreen extends StatefulWidget {
+  final Frase? frase; //null = nueva, con valor = editar
   const FormularioScreen({super.key, this.frase});
   @override
   State<FormularioScreen> createState() => _FormularioScreenState();
@@ -32,7 +32,7 @@ class _FormularioScreenState extends State<FormularioScreen> {
     if (!_formkey.currentState!.validate()) return;
     final frase = Frase(
       id: widget.frase?.id,
-      frase: _fraseCtrl.text.trim(), 
+      frase: _fraseCtrl.text.trim(),
       autor: _autoCtrl.text.trim(),
     );
     if (_esEdicion) {
@@ -47,8 +47,9 @@ class _FormularioScreenState extends State<FormularioScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(_esEdicion ? 'Editar frase' : 'Nueva frase'),),
+      appBar: AppBar(title: Text(_esEdicion ? 'Editar frase' : 'Nueva frase')),
       body: Form(
+        key: _formkey,
         child: ListView(
           padding: const EdgeInsets.all(16),
           children: [
@@ -63,10 +64,10 @@ class _FormularioScreenState extends State<FormularioScreen> {
                 border: OutlineInputBorder(),
               ),
               validator: (v) => (v == null || v.trim().length < 5)
-              ? 'Escribe al menos 5 caracteres'
-              :null,
+                  ? 'Escribe al menos 5 caracteres'
+                  : null,
             ),
-            const SizedBox(height: 16,),
+            const SizedBox(height: 16),
             TextFormField(
               controller: _autoCtrl,
               textCapitalization: TextCapitalization.words,
@@ -76,16 +77,16 @@ class _FormularioScreenState extends State<FormularioScreen> {
                 border: OutlineInputBorder(),
               ),
               validator: (v) =>
-                (v == null || v.trim().isEmpty) ? 'Escribe el autor' : null,
+                  (v == null || v.trim().isEmpty) ? 'Escribe el autor' : null,
             ),
-            const SizedBox(height: 24,),
+            const SizedBox(height: 24),
             FilledButton.icon(
-              onPressed: _guardar, 
+              onPressed: _guardar,
               icon: const Icon(Icons.save),
               label: Text(_esEdicion ? 'Guardar cambios' : 'Guardar Frase'),
             ),
           ],
-        )
+        ),
       ),
     );
   }
